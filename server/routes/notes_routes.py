@@ -16,8 +16,23 @@ def get_notes():
     if error:
         return error, status
 
-    notes = Note.query.filter_by(user_id=user_id).all()
-    return jsonify([note.to_dict() for note in notes]), 200
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', default=10, type=int)
+
+    pagination = db.paginate(
+        Note.query.filter_by(user_id=user_id).order_by(Note.id),
+        page=page,
+        per_page=per_page,
+        error_out=False
+    )
+
+    return jsonify({
+        "items": [note.to_dict() for note in pagination.items],
+        "total": pagination.total,
+        "page": pagination.page,
+        "pages": pagination.pages,
+        "per_page": pagination.per_page
+    }), 200
 
 @notes_bp.route('/notes', methods=['POST'])
 def create_note():
