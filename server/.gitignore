@@ -1,0 +1,15 @@
+__pycache__/
+
+*.pyc
+
+instance/
+
+*.db
+
+cookie.txt
+
+.flask_session/
+
+migrations/.*_cache
+
+.vscode/
