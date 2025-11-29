@@ -1,15 +1,16 @@
 __pycache__/
-
 *.pyc
 
-instance/
+.env
+*.env
 
+instance/
 *.db
 
 cookie.txt
-
+flask_session/
 .flask_session/
 
-migrations/.*_cache
-
 .vscode/
+
+migrations/.*_cache
